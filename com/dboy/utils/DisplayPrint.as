@@ -10,37 +10,32 @@ package com.dboy.utils
 	 */	
 	public class DisplayPrint
 	{
-		private var _display:DisplayObject;
+		private const START_LINE:String = "=====START======";
 		
-		private var _start:String = "=====START======";
+		private const END_LINE:String = "=====END======";
 		
-		private var _end:String = "=====END======";
+		private const SPLIT:String = "\n";
 		
-		private var _split:String = "\n";
-		
-		public function DisplayPrint(display:DisplayObject,startStr:String = null,endStr:String = null,splitStr:String = null)
+		public function DisplayPrint()
 		{
-			_display = display;	
-			_start = startStr ? startStr : _start;
-			_end = endStr ? endStr : _end;
-			_split = splitStr ? splitStr : _split;
+			
 		}
 		
 		/**
 		 * 打印所有子对象 
 		 * 
 		 */		
-		public function printTotalElements():void
+		public function printTotalElements(display:DisplayObject):void
 		{
-			var list:Vector.<DisplayObject> = getTotalElementsList();
-			var str:String = _start;
+			var list:Vector.<DisplayObject> = getTotalElementsList(display);
+			var str:String = START_LINE;
 			for(var i:int = 0;i < list.length;i++)
 			{
-				str += _split;
+				str += SPLIT;
 				str += list[i].toString() + " " + list[i].name;
 			}
-			str += _split + "TOTAL=" + list.length;
-			str += _split + _end;
+			str += SPLIT + "TOTAL=" + list.length;
+			str += SPLIT + END_LINE;
 			trace(str)
 		}
 		
@@ -49,9 +44,9 @@ package com.dboy.utils
 		 * @return 
 		 * 
 		 */		
-		public function getTotalElementsList():Vector.<DisplayObject>
+		public function getTotalElementsList(display:DisplayObject):Vector.<DisplayObject>
 		{
-			var container:DisplayObjectContainer = _display as DisplayObjectContainer;
+			var container:DisplayObjectContainer = display as DisplayObjectContainer;
 			var elementList:Vector.<DisplayObject> = new Vector.<DisplayObject>();
 			if(! container)
 				return elementList;
